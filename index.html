@@ -59,7 +59,8 @@
       from { text-shadow: 0 0 10px #C69CFF, 0 0 20px #C69CFF; }
       to   { text-shadow: 0 0 20px #E2D4F7, 0 0 40px #E2D4F7; }
     }
-    .controls {
+
+    .controls, .buttons {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
       gap: 16px;
@@ -67,60 +68,60 @@
       width: 100%;
       max-width: 1000px;
     }
-    .control-card {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+
+    .control-card, .button-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
       backdrop-filter: blur(8px);
       border-radius: 16px;
       padding: 14px;
       box-shadow: 0 4px 15px rgba(0,0,0,0.4);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      font-size: 0.9rem;
     }
-    .control-card:hover {
+    .control-card:hover, .button-card:hover {
       transform: translateY(-5px) scale(1.02);
       box-shadow: 0 6px 20px rgba(198,156,255,0.6);
     }
-    select, button {
-      padding: 8px 12px;
-      border-radius: 10px;
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-size: 0.85rem;
+      color: var(--violet-light);
+      text-align: center;
+    }
+
+    select, button, .file-upload {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 999px;
       border: none;
       background: var(--violet-button);
       color: var(--violet-medium);
       font-weight: 600;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       transition: all 0.3s ease;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
       cursor: pointer;
-      margin-top: 6px;
+      text-align: center;
+      font-family: 'Segoe UI', sans-serif;
     }
-    select:hover, button:hover {
+
+    select:hover, button:hover, .file-upload:hover {
       background: var(--violet-button-hover);
       box-shadow: 0 0 12px var(--violet-button-hover);
     }
+
     input[type=file] { display: none; }
-    .file-upload {
-      display: inline-block;
-      padding: 8px 12px;
-      border-radius: 10px;
-      background: var(--violet-button);
-      color: var(--violet-medium);
-      font-weight: 600;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-align: center;
-    }
-    .file-upload:hover {
-      background: var(--violet-button-hover);
-      box-shadow: 0 0 10px var(--violet-button-hover);
-    }
+
     canvas#monsterCanvas {
       background: transparent;
       border: 3px solid var(--violet-button);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.7);
       border-radius: 20px;
       max-width: 100%;
       height: auto;
@@ -130,108 +131,105 @@
     canvas#monsterCanvas:hover {
       transform: scale(1.02) rotate(-1deg);
     }
-    .buttons {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
+
     @media (max-width: 600px) {
       h1 { font-size: 2.2rem; text-align: center; }
-      .controls { grid-template-columns: 1fr; }
+      .controls, .buttons { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-
   <canvas id="bgCanvas"></canvas>
-
   <h1>Create Your Monster</h1>
 
   <div class="buttons">
-    <button id="downloadBtn">Download PNG</button>
-    <button id="randomBtn">Randomize</button>
-    <label class="file-upload">
-      Upload Background
-      <input type="file" id="uploadBackground" accept="image/*">
-    </label>
+    <div class="button-card">
+      <label for="downloadBtn">Download PNG</label>
+      <button id="downloadBtn">Download</button>
+    </div>
+    <div class="button-card">
+      <label for="randomBtn">Randomize Monster</label>
+      <button id="randomBtn">Randomize</button>
+    </div>
+    <div class="button-card">
+      <label for="uploadBackground">Upload Background</label>
+      <label class="file-upload">
+        Choose File
+        <input type="file" id="uploadBackground" accept="image/*">
+      </label>
+    </div>
   </div>
 
   <div class="controls">
-    <div class="control-card">🎨 
-      <label>Background:
-        <select id="background">
-          <option value="background1.png">Background 1</option>
-          <option value="background2.png">Background 2</option>
-          <option value="background3.png">Background 3</option>
-          <option value="background4.png">Background 4</option>
-          <option value="background5.png">Background 5</option>
-          <option value="background6.png">Background 6</option>
-          <option value="background7.png">Background 7</option>
-          <option value="background8.png">Background 8</option>
-          <option value="background9.png">Background 9</option>
-          <option value="background10.png">Background 10</option>
-        </select>
-      </label>
+    <div class="control-card">
+      <label for="background">Background</label>
+      <select id="background">
+        <option value="background1.png">Background 1</option>
+        <option value="background2.png">Background 2</option>
+        <option value="background3.png">Background 3</option>
+        <option value="background4.png">Background 4</option>
+        <option value="background5.png">Background 5</option>
+        <option value="background6.png">Background 6</option>
+        <option value="background7.png">Background 7</option>
+        <option value="background8.png">Background 8</option>
+        <option value="background9.png">Background 9</option>
+        <option value="background10.png">Background 10</option>
+      </select>
     </div>
-    <div class="control-card">🧩 
-      <label>Body:
-        <select id="body">
-          <option value="body1.png">Body 1</option>
-          <option value="body2.png">Body 2</option>
-          <option value="body3.png">Body 3</option>
-          <option value="body4.png">Body 4</option>
-          <option value="body5.png">Body 5</option>
-          <option value="body6.png">Body 6</option>
-          <option value="body7.png">Body 7</option>
-          <option value="body8.png">Body 8</option>
-          <option value="body9.png">Body 9</option>
-          <option value="body10.png">Body 10</option>
-          <option value="body11.png">Body 11</option>
-        </select>
-      </label>
+    <div class="control-card">
+      <label for="body">Body</label>
+      <select id="body">
+        <option value="body1.png">Body 1</option>
+        <option value="body2.png">Body 2</option>
+        <option value="body3.png">Body 3</option>
+        <option value="body4.png">Body 4</option>
+        <option value="body5.png">Body 5</option>
+        <option value="body6.png">Body 6</option>
+        <option value="body7.png">Body 7</option>
+        <option value="body8.png">Body 8</option>
+        <option value="body9.png">Body 9</option>
+        <option value="body10.png">Body 10</option>
+        <option value="body11.png">Body 11</option>
+      </select>
     </div>
-    <div class="control-card">👁 
-      <label>Eyes:
-        <select id="eyes">
-          <option value="eyes1.png">Eyes 1</option>
-          <option value="eyes2.png">Eyes 2</option>
-          <option value="eyes3.png">Eyes 3</option>
-          <option value="eyes4.png">Eyes 4</option>
-          <option value="eyes5.png">Eyes 5</option>
-          <option value="eyes6.png">Eyes 6</option>
-        </select>
-      </label>
+    <div class="control-card">
+      <label for="eyes">Eyes</label>
+      <select id="eyes">
+        <option value="eyes1.png">Eyes 1</option>
+        <option value="eyes2.png">Eyes 2</option>
+        <option value="eyes3.png">Eyes 3</option>
+        <option value="eyes4.png">Eyes 4</option>
+        <option value="eyes5.png">Eyes 5</option>
+        <option value="eyes6.png">Eyes 6</option>
+      </select>
     </div>
-    <div class="control-card">👄 
-      <label>Mouth:
-        <select id="mouth">
-          <option value="mouth1.png">Mouth 1</option>
-          <option value="mouth2.png">Mouth 2</option>
-          <option value="mouth3.png">Mouth 3</option>
-          <option value="mouth4.png">Mouth 4</option>
-          <option value="mouth5.png">Mouth 5</option>
-        </select>
-      </label>
+    <div class="control-card">
+      <label for="mouth">Mouth</label>
+      <select id="mouth">
+        <option value="mouth1.png">Mouth 1</option>
+        <option value="mouth2.png">Mouth 2</option>
+        <option value="mouth3.png">Mouth 3</option>
+        <option value="mouth4.png">Mouth 4</option>
+        <option value="mouth5.png">Mouth 5</option>
+      </select>
     </div>
-    <div class="control-card">🎩 
-      <label>Hat:
-        <select id="hat">
-          <option value="">None</option>
-          <option value="hat1.png">Hat 1</option>
-          <option value="hat2.png">Hat 2</option>
-          <option value="hat3.png">Hat 3</option>
-          <option value="hat4.png">Hat 4</option>
-          <option value="hat5.png">Hat 5</option>
-        </select>
-      </label>
+    <div class="control-card">
+      <label for="hat">Hat</label>
+      <select id="hat">
+        <option value="">None</option>
+        <option value="hat1.png">Hat 1</option>
+        <option value="hat2.png">Hat 2</option>
+        <option value="hat3.png">Hat 3</option>
+        <option value="hat4.png">Hat 4</option>
+        <option value="hat5.png">Hat 5</option>
+      </select>
     </div>
   </div>
 
   <canvas id="monsterCanvas" width="512" height="512"></canvas>
 
   <script>
-    /* -------- Летающие монстры на фоне -------- */
+    // Летающие монстры на фоне
     const bgCanvas = document.getElementById('bgCanvas');
     const bgCtx = bgCanvas.getContext('2d');
     bgCanvas.width = window.innerWidth;
@@ -258,108 +256,8 @@
     }
     monsterImg.onload = animateBackground;
 
-    /* -------- Основной канвас -------- */
+    // Основной канвас
     const canvas = document.getElementById('monsterCanvas');
     const ctx = canvas.getContext('2d');
     const selectors = {
-      background: document.getElementById('background'),
-      body: document.getElementById('body'),
-      eyes: document.getElementById('eyes'),
-      mouth: document.getElementById('mouth'),
-      hat: document.getElementById('hat'),
-    };
-    const customImages = {};
-
-    function loadImage(src) {
-      return new Promise((resolve) => {
-        if (!src) return resolve(null);
-        if (customImages[src]) {
-          const img = customImages[src];
-          if (img.complete) return resolve(img);
-          img.onload = () => resolve(img);
-          return;
-        }
-        const img = new Image();
-        img.crossOrigin = "anonymous";
-        img.src = src.startsWith("data:") ? src : src;
-        img.onload = () => resolve(img);
-        img.onerror = () => resolve(null);
-      });
-    }
-
-    async function drawMonster() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const layers = [
-        selectors.background.value,
-        selectors.body.value,
-        selectors.eyes.value,
-        selectors.mouth.value,
-        selectors.hat.value,
-      ];
-      for (const layer of layers) {
-        if (!layer) continue;
-        let img;
-        if (layer === "uploadedBackground") {
-          img = customImages["uploadedBackground"];
-        } else {
-          img = await loadImage(layer);
-        }
-        if (img) ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-      }
-    }
-
-    Object.values(selectors).forEach(sel => sel.addEventListener('change', drawMonster));
-
-    document.getElementById('downloadBtn').addEventListener('click', () => {
-      const link = document.createElement('a');
-      link.download = `monster_${Date.now()}.png`;
-      link.href = canvas.toDataURL("image/png");
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    });
-
-    function randomize() {
-      Object.values(selectors).forEach(sel => {
-        const options = sel.options;
-        sel.selectedIndex = Math.floor(Math.random() * options.length);
-      });
-      drawMonster();
-    }
-    document.getElementById('randomBtn').addEventListener('click', randomize);
-
-    /* ---- Загрузка своего фона ---- */
-    document.getElementById('uploadBackground').addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          const img = new Image();
-          img.src = event.target.result;
-
-          img.onload = () => { // ждём загрузку
-            customImages["uploadedBackground"] = img;
-
-            let exists = false;
-            [...selectors.background.options].forEach(opt => {
-              if (opt.value === "uploadedBackground") exists = true;
-            });
-            if (!exists) {
-              const opt = document.createElement("option");
-              opt.value = "uploadedBackground";
-              opt.textContent = "Custom Background";
-              selectors.background.appendChild(opt);
-            }
-
-            selectors.background.value = "uploadedBackground";
-            drawMonster();
-          };
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-
-    drawMonster();
-  </script>
-</body>
-</html>
+      background: document.get
