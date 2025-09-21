@@ -94,6 +94,7 @@
       transition: all 0.3s ease;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
       cursor: pointer;
+      margin-top: 6px;
     }
     select:hover, button:hover {
       background: var(--violet-button-hover);
@@ -335,22 +336,24 @@
         reader.onload = (event) => {
           const img = new Image();
           img.src = event.target.result;
-          customImages["uploadedBackground"] = img;
 
-          // добавить опцию "Custom"
-          let exists = false;
-          [...selectors.background.options].forEach(opt => {
-            if (opt.value === "uploadedBackground") exists = true;
-          });
-          if (!exists) {
-            const opt = document.createElement("option");
-            opt.value = "uploadedBackground";
-            opt.textContent = "Custom Background";
-            selectors.background.appendChild(opt);
-          }
+          img.onload = () => { // ждём загрузку
+            customImages["uploadedBackground"] = img;
 
-          selectors.background.value = "uploadedBackground";
-          drawMonster();
+            let exists = false;
+            [...selectors.background.options].forEach(opt => {
+              if (opt.value === "uploadedBackground") exists = true;
+            });
+            if (!exists) {
+              const opt = document.createElement("option");
+              opt.value = "uploadedBackground";
+              opt.textContent = "Custom Background";
+              selectors.background.appendChild(opt);
+            }
+
+            selectors.background.value = "uploadedBackground";
+            drawMonster();
+          };
         };
         reader.readAsDataURL(file);
       }
