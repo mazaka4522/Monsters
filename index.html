@@ -5,137 +5,48 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Create Your Monster</title>
 <style>
-  :root {
-    --violet-dark: #2D0A54;
-    --violet-medium: #3D0078;
-    --violet-light: #E2D4F7;
-    --violet-button: #C69CFF;
-    --violet-button-hover: #D9B9FF;
-  }
-  body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    color: var(--violet-light);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-  body::before {
-    content: "";
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: linear-gradient(270deg, #2D0A54, #3D0078, #6E00B3, #2D0A54);
-    background-size: 800% 800%;
-    animation: gradientShift 20s ease infinite;
-    z-index: -2;
-  }
-  @keyframes gradientShift {
-    0% {background-position: 0% 50%;}
-    50% {background-position: 100% 50%;}
-    100% {background-position: 0% 50%;}
-  }
-  #bgCanvas {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    pointer-events: none;
-  }
-  h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
-    background: linear-gradient(90deg, #C69CFF, #E2D4F7, #C69CFF);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 20px rgba(198,156,255,0.8);
-    animation: glow 4s infinite alternate;
-  }
-  @keyframes glow {
-    from { text-shadow: 0 0 10px #C69CFF, 0 0 20px #C69CFF; }
-    to   { text-shadow: 0 0 20px #E2D4F7, 0 0 40px #E2D4F7; }
-  }
-
-  .controls, .buttons {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 16px;
-    margin-bottom: 25px;
-    width: 100%;
-    max-width: 1000px;
-  }
-
-  .control-card, .button-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.2);
-    backdrop-filter: blur(8px);
-    border-radius: 16px;
-    padding: 14px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  .control-card:hover, .button-card:hover {
-    transform: translateY(-5px) scale(1.02);
-    box-shadow: 0 6px 20px rgba(198,156,255,0.6);
-  }
-
-  label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 6px;
-    font-size: 0.85rem;
-    color: var(--violet-light);
-    text-align: center;
-  }
-
-  select, button, .file-upload {
-    width: 100%;
-    padding: 10px 14px;
-    border-radius: 999px;
-    border: none;
-    background: var(--violet-button);
-    color: var(--violet-medium);
-    font-weight: 600;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-    cursor: pointer;
-    text-align: center;
-    font-family: 'Segoe UI', sans-serif;
-  }
-
-  select:hover, button:hover, .file-upload:hover {
-    background: var(--violet-button-hover);
-    box-shadow: 0 0 12px var(--violet-button-hover);
-  }
-
-  input[type=file] { display: none; }
-
-  canvas#monsterCanvas {
-    background: transparent;
-    border: 3px solid var(--violet-button);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.7);
-    border-radius: 20px;
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 20px;
-    transition: transform 0.3s ease;
-  }
-  canvas#monsterCanvas:hover {
-    transform: scale(1.02) rotate(-1deg);
-  }
-
-  @media (max-width: 600px) {
-    h1 { font-size: 2.2rem; text-align: center; }
-    .controls, .buttons { grid-template-columns: 1fr; }
-  }
+:root {
+  --violet-dark: #2D0A54;
+  --violet-medium: #3D0078;
+  --violet-light: #E2D4F7;
+  --violet-button: #C69CFF;
+  --violet-button-hover: #D9B9FF;
+}
+body {
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  color:var(--violet-light);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:20px;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+body::before {
+  content:"";
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:linear-gradient(270deg,#2D0A54,#3D0078,#6E00B3,#2D0A54);
+  background-size:800% 800%;
+  animation:gradientShift 20s ease infinite;
+  z-index:-2;
+}
+@keyframes gradientShift {0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+#bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;}
+h1{font-size:3rem;margin-bottom:20px;background:linear-gradient(90deg,#C69CFF,#E2D4F7,#C69CFF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 20px rgba(198,156,255,0.8);animation:glow 4s infinite alternate;}
+@keyframes glow {from{text-shadow:0 0 10px #C69CFF,0 0 20px #C69CFF;}to{text-shadow:0 0 20px #E2D4F7,0 0 40px #E2D4F7;}}
+.controls,.buttons{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:25px;width:100%;max-width:1000px;}
+.control-card,.button-card{display:flex;flex-direction:column;align-items:center;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);backdrop-filter:blur(8px);border-radius:16px;padding:14px;box-shadow:0 4px 15px rgba(0,0,0,0.4);transition:transform 0.3s ease,box-shadow 0.3s ease;}
+.control-card:hover,.button-card:hover{transform:translateY(-5px) scale(1.02);box-shadow:0 6px 20px rgba(198,156,255,0.6);}
+label{display:block;font-weight:600;margin-bottom:6px;font-size:0.85rem;color:var(--violet-light);text-align:center;}
+select,button,.file-upload{width:100%;padding:10px 14px;border-radius:999px;border:none;background:var(--violet-button);color:var(--violet-medium);font-weight:600;font-size:0.9rem;transition:all 0.3s ease;box-shadow:0 2px 6px rgba(0,0,0,0.25);cursor:pointer;text-align:center;font-family:'Segoe UI',sans-serif;}
+select:hover,button:hover,.file-upload:hover{background:var(--violet-button-hover);box-shadow:0 0 12px var(--violet-button-hover);}
+input[type=file]{display:none;}
+canvas#monsterCanvas{background:transparent;border:3px solid var(--violet-button);box-shadow:0 6px 20px rgba(0,0,0,0.7);border-radius:20px;max-width:100%;height:auto;margin-bottom:20px;transition:transform 0.3s ease;}
+canvas#monsterCanvas:hover{transform:scale(1.02) rotate(-1deg);}
+@media(max-width:600px){h1{font-size:2.2rem;text-align:center;}.controls,.buttons{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -229,113 +140,105 @@
 <canvas id="monsterCanvas" width="512" height="512"></canvas>
 
 <script>
-const bgCanvas = document.getElementById('bgCanvas');
-const bgCtx = bgCanvas.getContext('2d');
-bgCanvas.width = window.innerWidth;
-bgCanvas.height = window.innerHeight;
-
-// Фоновые летучие монстры
-const monsters = [];
-const monsterImg = new Image();
-monsterImg.src = "mini_monster.png";
-for (let i = 0; i < 12; i++) {
-  monsters.push({x: Math.random()*bgCanvas.width,y: Math.random()*bgCanvas.height,
-    size: 40+Math.random()*30,speedX:(Math.random()-0.5)*1.5,speedY:(Math.random()-0.5)*1.5});
+// ====== Фоновые летучие монстры ======
+const bgCanvas=document.getElementById('bgCanvas');
+const bgCtx=bgCanvas.getContext('2d');
+bgCanvas.width=window.innerWidth;
+bgCanvas.height=window.innerHeight;
+const monsters=[];
+const monsterImg=new Image();
+monsterImg.src="mini_monster.png";
+for(let i=0;i<12;i++){
+  monsters.push({x:Math.random()*bgCanvas.width,y:Math.random()*bgCanvas.height,size:40+Math.random()*30,speedX:(Math.random()-0.5)*1.5,speedY:(Math.random()-0.5)*1.5});
 }
-function animateBackground() {
-  bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
-  monsters.forEach(m => {
-    bgCtx.drawImage(monsterImg, m.x, m.y, m.size, m.size);
-    m.x += m.speedX; m.y += m.speedY;
-    if (m.x < -m.size) m.x = bgCanvas.width;
-    if (m.x > bgCanvas.width) m.x = -m.size;
-    if (m.y < -m.size) m.y = bgCanvas.height;
-    if (m.y > bgCanvas.height) m.y = -m.size;
+function animateBackground(){
+  bgCtx.clearRect(0,0,bgCanvas.width,bgCanvas.height);
+  monsters.forEach(m=>{
+    bgCtx.drawImage(monsterImg,m.x,m.y,m.size,m.size);
+    m.x+=m.speedX;m.y+=m.speedY;
+    if(m.x<-m.size)m.x=bgCanvas.width;
+    if(m.x>bgCanvas.width)m.x=-m.size;
+    if(m.y<-m.size)m.y=bgCanvas.height;
+    if(m.y>bgCanvas.height)m.y=-m.size;
   });
   requestAnimationFrame(animateBackground);
 }
-monsterImg.onload = animateBackground;
+monsterImg.onload=animateBackground;
 
-// Основной канвас
-const canvas = document.getElementById('monsterCanvas');
-const ctx = canvas.getContext('2d');
-const selectors = {
-  background: document.getElementById('background'),
-  body: document.getElementById('body'),
-  eyes: document.getElementById('eyes'),
-  mouth: document.getElementById('mouth'),
-  hat: document.getElementById('hat')
+// ====== Основной канвас ======
+const canvas=document.getElementById('monsterCanvas');
+const ctx=canvas.getContext('2d');
+const selectors={
+  background:document.getElementById('background'),
+  body:document.getElementById('body'),
+  eyes:document.getElementById('eyes'),
+  mouth:document.getElementById('mouth'),
+  hat:document.getElementById('hat'),
 };
-const customImages = {};
+const customImages={};
 
-function loadImage(src) {
-  return new Promise(resolve => {
-    if (!src) return resolve(null);
-    if (customImages[src]) {
-      const img = customImages[src];
-      if (img.complete) return resolve(img);
-      img.onload = () => resolve(img);
+function loadImage(src){
+  return new Promise(resolve=>{
+    if(!src) return resolve(null);
+    if(customImages[src]){
+      const img=customImages[src];
+      if(img.complete) return resolve(img);
+      img.onload=()=>resolve(img);
       return;
     }
-    const img = new Image();
-    img.crossOrigin = "anonymous";
-    img.src = src.startsWith("data:") ? src : src;
-    img.onload = () => resolve(img);
-    img.onerror = () => resolve(null);
+    const img=new Image();
+    img.crossOrigin="anonymous";
+    img.src=src.startsWith("data:")?src:src;
+    img.onload=()=>resolve(img);
+    img.onerror=()=>resolve(null);
   });
 }
 
-async function drawMonster() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  const layers = [
-    selectors.background.value,
-    selectors.body.value,
-    selectors.eyes.value,
-    selectors.mouth.value,
-    selectors.hat.value
-  ];
-  for (const layer of layers) {
-    if (!layer) continue;
+async function drawMonster(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  const layers=[selectors.background.value,selectors.body.value,selectors.eyes.value,selectors.mouth.value,selectors.hat.value];
+  for(const layer of layers){
+    if(!layer) continue;
     let img;
-    if (layer === "uploadedBackground") img = customImages["uploadedBackground"];
-    else img = await loadImage(layer);
-    if (img) ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    if(layer==="uploadedBackground") img=customImages["uploadedBackground"];
+    else img=await loadImage(layer);
+    if(img) ctx.drawImage(img,0,0,canvas.width,canvas.height);
   }
 }
 
-Object.values(selectors).forEach(sel => sel.addEventListener('change', drawMonster));
+Object.values(selectors).forEach(sel=>sel.addEventListener('change',drawMonster));
 
-document.getElementById('downloadBtn').addEventListener('click', () => {
-  const link = document.createElement('a');
-  link.download = `monster_${Date.now()}.png`;
-  link.href = canvas.toDataURL("image/png");
+document.getElementById('downloadBtn').addEventListener('click',()=>{
+  const link=document.createElement('a');
+  link.download=`monster_${Date.now()}.png`;
+  link.href=canvas.toDataURL("image/png");
   link.click();
 });
 
-document.getElementById('randomBtn').addEventListener('click', () => {
-  Object.values(selectors).forEach(sel => {
-    const options = sel.options;
-    sel.selectedIndex = Math.floor(Math.random() * options.length);
+document.getElementById('randomBtn').addEventListener('click',()=>{
+  Object.values(selectors).forEach(sel=>{
+    const options=sel.options;
+    sel.selectedIndex=Math.floor(Math.random()*options.length);
   });
   drawMonster();
 });
 
-document.getElementById('uploadBackground').addEventListener('change', e => {
-  const file = e.target.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = event => {
-    const img = new Image();
-    img.src = event.target.result;
-    customImages["uploadedBackground"] = img;
-    let exists = [...selectors.background.options].some(opt => opt.value==="uploadedBackground");
-    if (!exists) {
-      const opt = document.createElement("option");
-      opt.value = "uploadedBackground";
-      opt.textContent = "Custom Background";
+document.getElementById('uploadBackground').addEventListener('change',e=>{
+  const file=e.target.files[0];
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=event=>{
+    const img=new Image();
+    img.src=event.target.result;
+    customImages["uploadedBackground"]=img;
+    let exists=[...selectors.background.options].some(opt=>opt.value==="uploadedBackground");
+    if(!exists){
+      const opt=document.createElement("option");
+      opt.value="uploadedBackground";
+      opt.textContent="Custom Background";
       selectors.background.appendChild(opt);
     }
-    selectors.background.value = "uploadedBackground";
+    selectors.background.value="uploadedBackground";
     drawMonster();
   };
   reader.readAsDataURL(file);
